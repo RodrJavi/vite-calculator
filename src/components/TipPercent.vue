@@ -8,7 +8,7 @@ const emit = defineEmits(["percent"]);
 const things = [5, 10, 15, 25, 50];
 
 const output = computed(() => {
-  if (customInput.value) return customInput.value;
+  if (customInput.value) return (customInput.value / 100);
   if (percentage.value) return percentage.value;
   return 0;
 });
@@ -19,35 +19,25 @@ watch(output, (newOutput) => {
 </script>
 
 <template>
-  <div>
     <span class="text-dgcyan">Select Tip %</span>
-    <form class="grid grid-cols-2 gap-3 md:grid-cols-3">
+    <form class="grid grid-cols-2 gap-5 md:grid-cols-3">
       <div v-for="i in things">
         <input
           v-model="percentage"
           name="tip"
           type="radio"
-          :value="i"
+          :value="(i/100)"
           :id="i"
           class="peer hidden"
           @change="customInput = ''"
         />
         <label
           :for="i"
-          class="text-white bg-dcyan rounded p-1.5 hover:bg-cyan peer-checked:bg-cyan"
+          class="text-white w-10 bg-dcyan rounded py-1.5 px-10 hover:bg-cyan peer-checked:bg-cyan"
         >
           {{ i }}%
         </label>
       </div>
-      <!-- <pre>
-        {{
-          {
-            percentage,
-            customInput,
-            output,
-          }
-        }}
-      </pre> -->
 
       <input
         @click="percentage = ''"
@@ -56,8 +46,7 @@ watch(output, (newOutput) => {
         type="number"
         id="custom"
         placeholder="custom"
-        class="text-gcyan bg-vlgcyan rounded p-1.5 hover:bg-cyan"
+        class="text-dcyan bg-vlgcyan rounded p-1.5 text-right hover:border-10 border-cyan"
       />
     </form>
-  </div>
 </template>
